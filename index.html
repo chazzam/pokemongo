@@ -51,7 +51,62 @@
 	<br/>
 	<p>You may need to start evolving with your weakest Pokemon and then
 	transfer them to evolve the last kept "Pokemon to Evolve" in certain
-	edge cases.
+	edge cases.<br/>
+	I'd recommend going ahead and transferring all the Pokemon above the 
+	"Pokemon to Evolve" value before using the "Lucky Egg" and beginning
+	the Evolution spree, for a cleaner work space.
+	</p>
+	<p>From Scratch, Catch and Transfer evolution values:<br/>
+	<table>
+		<tr>
+			<td>Evolve Cost</td>
+			<td>Catch to Evolve just One</td>
+			<td>Catch & Transfer to Evolve just One</td>
+		</tr>
+		<tr>
+			<td>12</td>
+			<td>4</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>25</td>
+			<td>9</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>50</td>
+			<td>17</td>
+			<td>13</td>
+		</tr>
+		<tr>
+			<td>100</td>
+			<td>34</td>
+			<td>26</td>
+		</tr>
+		<tr>
+			<td>400</td>
+			<td>134</td>
+			<td>101</td>
+		</tr>
+	</table><br/>
+	This does not include an offset for Candy received from hatching 
+	Pokemon out of eggs, as that is pretty much random to the best of my 
+	knowledge.
+	</p>
+	<p>
+	Formula Explanation:<br/><br/>
+	Terms used:<br/>
+	Candy - Current Candy<br/>
+	Cost - Evolution Cost<br/>
+	Per - Candy per Catch = 3<br/>
+	</p>
+	<p>
+	Formulas:<br/>
+	Catches needed for an evolution: Cost/Per<br/>
+	Catches needed for an evolution, with Transfers: (Cost + 1) / (Per + 1)<br/>
+	Catches remaining for an evolution, with Transfers: (Cost - Candy + 1) / (Per + 1)<br/>
+	Pokemon to Keep/Evolve: (Candy/Cost + Candy - 1) / Cost<br/>
+	Pokemon to Keep/Evolve, with Transfers: (Candy/Cost * 2 + Candy - 1) / Cost<br/>
 	</p>
 </body>
 </html>
