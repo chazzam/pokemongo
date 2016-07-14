@@ -25,14 +25,14 @@ function getTotal() {
 	var evolve = getEvolved();
 	var keep = (candy + (2 * ( (candy/evolve) - 1))) / evolve;
 	var scratch = (evolve + 1)/candyPer;
-	var current = (evolve - candy + 1) / candyPer;
-	if (current < 0 || candy === evolve) {
-		current = 0;
+	var catches = (evolve - candy + 1) / candyPer;
+	if (catches < 0 || candy === evolve || candy === 0) {
+		catches = 0;
 	}
 	if (keep < 0) {
 		keep = 0;
 	}
 	document.getElementById('keep').innerHTML = Math.floor(keep);
 	document.getElementById('scratch').innerHTML = Math.ceil(scratch);
-	document.getElementById('current').innerHTML = Math.ceil(current);
+	document.getElementById('catches').innerHTML = Math.ceil(catches);
 }
