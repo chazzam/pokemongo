@@ -23,7 +23,7 @@ function getTotal() {
 	var candyPer = (3 + 1);
 	var candy = getCandy();
 	var evolve = getEvolved();
-	var keep = candy + (2 * (candy/evolve - 1)) / evolve;
+	var keep = (candy + (2 * ( (candy/evolve) - 1))) / evolve;
 	var scratch = (evolve + 1)/candyPer;
 	var current = ( (evolve - candy) + 1) / candyPer;
 	if (current < 0) {
