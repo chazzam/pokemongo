@@ -8,11 +8,29 @@
 	<form action="" id="generalform" onsubmit="return false;">
 		<fieldset>
 			<p>
-			<input type="text" id="currentCandy12" name="currentCandy"
+			<!---<input type="text" id="currentCandy12" name="currentCandy"
 				value="Current Candy" onchange="getTotal()"/>
-			<label class="inlinelabel" for="currentCandy12">Evolve: 12</label>
-			<label class="inlinelabel" for="currentCandy12" id="scratch12"></label>
-			<label class="inlinelabel" for="currentCandy12" id="current12"></label>
+			--->
+			<input type="number" id="currentCandy" name="currentCandy"
+				value="0" min="0" step="1" onchange="getTotal()"/>
+			<label class="inlinelabel" for="evolveCost">Evolve Cost:</label>
+			<select id="evolveCost" name="evolveCost" onchange="getTotal()">
+				<option value="12">12</option>
+				<option value="25">25</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+				<option value="400">400</option>
+			</select>
+			</p>
+			<p>
+			<label class="inlinelabel" for="keep">Pokemon to Keep:</label>
+			<label id="keep"></label>
+			<br/>
+			<label class="inlinelabel" for="scratch">Catch from Scratch:</label>
+			<label id="scratch"></label>
+			<br/>
+			<label class="inlinelabel" for="current">Catches Remaining:</label>
+			<label id="current"></label>
 			</p>
 		</fieldset>
 	</form>
