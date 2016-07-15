@@ -16,7 +16,11 @@
 			--->
 			<label class="inlinelabel" for="currentCandy">Current Candy:</label>
 			<input type="number" id="currentCandy" name="currentCandy"
-				value="0" min="0" step="1" onchange="getTotal()"/>
+				value="0" min="0" step="1" onchange="getTotal()"/><br/>
+			<label class="inlinelabel" for="currentPokemon">Pokemon:</label>
+			<input type="number" id="currentPokemon" name="currentPokemon"
+				value="-1" min="-1" step="1" onchange="getAllTotals()"/><br/>
+			<label>If Pokemon is -1, it will estimate the number of pokemon as Candy/3</label>
 			<br/>
 			<label class="inlinelabel" for="evolveCost">Evolve Cost:</label>
 			<select id="evolveCost" name="evolveCost" onchange="getTotal()">
@@ -53,6 +57,83 @@
 		</fieldset>
 	</form>
 	<br/>
+	<p><table border="1">
+		<tr><th></th>
+			<th colspan="3">Keeping Evolved</th>
+			<th colspan="3">Keeping One Evolved</th>
+			<th colspan="3">Transferring all</th></tr>
+		<tr><th>Evolve<br/>Cost</th>
+			<th>Can<br/>Evolve</th>
+			<th>Xfer<br/>to +1</th>
+			<th>Catch &amp;<br/>Xfer to +1</th>
+			<th>Can<br/>Evolve</th>
+			<th>Xfer<br/>to +1</th>
+			<th>Catch &amp;<br/>Xfer to +1</th>
+			<th>Can<br/>Evolve</th>
+			<th>Xfer<br/>to +1</th>
+			<th>Catch &amp;<br/>Xfer to +1</th>
+		</tr>
+		<tr>
+			<td>12</td>
+			<td id="ev12-AE"></td>
+			<td id="ev12-AT"></td>
+			<td id="ev12-AC"></td>
+			<td id="ev12-1E"></td>
+			<td id="ev12-1T"></td>
+			<td id="ev12-1C"></td>
+			<td id="ev12-0E"></td>
+			<td id="ev12-0T"></td>
+			<td id="ev12-0C"></td>
+		</tr>
+		<tr>
+			<td>25</td>
+			<td id="ev25-AE"></td>
+			<td id="ev25-AT"></td>
+			<td id="ev25-AC"></td>
+			<td id="ev25-1E"></td>
+			<td id="ev25-1T"></td>
+			<td id="ev25-1C"></td>
+			<td id="ev25-0E"></td>
+			<td id="ev25-0T"></td>
+			<td id="ev25-0C"></td>
+		</tr>
+		<tr>
+			<td>50</td>
+			<td id="ev50-AE"></td>
+			<td id="ev50-AT"></td>
+			<td id="ev50-AC"></td>
+			<td id="ev50-1E"></td>
+			<td id="ev50-1T"></td>
+			<td id="ev50-1C"></td>
+			<td id="ev50-0E"></td>
+			<td id="ev50-0T"></td>
+			<td id="ev50-0C"></td>
+		</tr>
+		<tr>
+			<td>100</td>
+			<td id="ev100-AE"></td>
+			<td id="ev100-AT"></td>
+			<td id="ev100-AC"></td>
+			<td id="ev100-1E"></td>
+			<td id="ev100-1T"></td>
+			<td id="ev100-1C"></td>
+			<td id="ev100-0E"></td>
+			<td id="ev100-0T"></td>
+			<td id="ev100-0C"></td>
+		</tr>
+		<tr>
+			<td>400</td>
+			<td id="ev400-AE"></td>
+			<td id="ev400-AT"></td>
+			<td id="ev400-AC"></td>
+			<td id="ev400-1E"></td>
+			<td id="ev400-1T"></td>
+			<td id="ev400-1C"></td>
+			<td id="ev400-0E"></td>
+			<td id="ev400-0T"></td>
+			<td id="ev400-0C"></td>
+		</tr>
+	</table></p>
 	<p>You may need to start evolving with your weakest Pokemon and then
 	transfer them to evolve the last kept "Pokemon to Evolve" in certain
 	edge cases.<br/>
