@@ -14,6 +14,21 @@ function toCatch(evolutionCost, numberEvolved, currentCandy,
 	return Math.ceil(catches);
 }
 
+function needCatch(evolutionCost, numberEvolved, currentCandy, 
+	transferCandy, evolutionCandy, notTransferred, notTransferredEvolved
+) {
+	var catchCandy = 3;
+	var catches = 
+		(-1*currentCandy + evolutionCost*numberEvolved -
+			evolutionCandy*numberEvolved + evolutionCandy +
+			notTransferred*transferCandy + notTransferredEvolved*transferCandy)
+			/ (catchCandy + transferCandy);
+	if (catches < 0) {
+		catches=0;
+	}
+	return Math.ceil(catches);
+}
+
 function toEvolve(evolutionCost, currentCandy,
 	transferCandy, evolutionCandy, notTransferred
 ) {
@@ -41,6 +56,19 @@ function canEvolve(evolutionCost, currentCandy, currentPokemon,
 		evolve = 0;
 	}
 	return Math.floor(evolve);
+}
+
+function needCandy(evolutionCost, numberEvolved) {
+	var currentPokemon = 0,
+		catchCandy = 3,
+		notTransferred = 0,
+		transferCandy = 1,
+		evolutionCandy = 1;
+		var notTransferredEvolved = numberEvolved;
+	var candy = 
+		evolutionCost*numberEvolved + evolutionCandy*(-1*numberEvolved) + 
+		evolutionCandy + transferCandy*(notTransferred + numberEvolved);
+	return candy;
 }
 
 function getCandy() {
@@ -117,35 +145,80 @@ function getAllTotals() {
 	var candy = getCandy();
 	var pokemon= getPokemon();
 	if (pokemon == -1) {
-		pokemon = candy/candyPerCatch;
+		pokemon = Math.floor(candy/4);
 	}
-	var evolutions = {12:"12", 25:"25", 50:"50", 100:"100", 400:"400"};
-	var states = {A:"A", 1:"1"};
-	var x;
-	for (x in evolutions) {
-		var i;
-		for (i in states) {
-			var cost = x;
-			var M = 1;
-			if (i == "A") {
+	var evolutions = ["12", "25", "50", "100", "400"];
+	var states = ["A", "1"];
+	var i=0; var j=0;
+	var x; var y;
+	var cost; var M;
+	var evXfer; var evKeep; var evCatch;
+	for (i=0; i< evolutions.length; i++) {
+		x = evolutions[i];
+		for (j=0; j < states.length; j++) {
+			cost = x;
+			y = states[j];
+			M = 1;
+			if (y == "A") {
 				cost++;
 				M = 0;
 			}
-			var evXfer="";
-			var evKeep = canEvolve(cost, candy, pokemon, 1,1,M);
-			var evCatch = toCatch(cost, evKeep + 1, candy, 1,1,M);
-			document.getElementById('ev'+x+'-'+i+'C').innerHTML = evCatch;
-			document.getElementById('ev'+x+'-'+i+'E').innerHTML = evKeep;
-			document.getElementById('ev'+x+'-'+i+'T').innerHTML = evXfer;
+			evXfer="";
+			evKeep = canEvolve(cost, candy, pokemon, 1,1,M);
+			evCatch = toCatch(cost, evKeep + 1, candy, 1,1,M);
+			document.getElementById('ev'+x+'-'+y+'C').innerHTML = evCatch;
+			document.getElementById('ev'+x+'-'+y+'E').innerHTML = evKeep;
+			document.getElementById('ev'+x+'-'+y+'T').innerHTML = evXfer;
 		}
 	}
 }
-			//~ <td id="ev12-AE"></td>
-			//~ <td id="ev12-AT"></td>
-			//~ <td id="ev12-AC"></td>
-			//~ <td id="ev12-1E"></td>
-			//~ <td id="ev12-1T"></td>
-			//~ <td id="ev12-1C"></td>
-			//~ <td id="ev12-0E"></td>
-			//~ <td id="ev12-0T"></td>
-			//~ <td id="ev12-0C"></td>
+
+function candyCatchTable(counts, tid) {
+	var evolutions = [12, 25, 50, 100, 400];
+	var body = document.body;
+	var tbl = document.getElementById(tid);
+	var e,n, tr,td, i,j, candy,keep;
+	tbl.style.textAlign = "center";
+	var header = tbl.createTHead();
+	tr = header.insertRow();
+	tr.style.fontWeight = "bold";
+	td = tr.insertCell();
+	td.appendChild(document.createTextNode(""));
+	td.setAttribute('rowSpan', '2');
+	td = tr.insertCell();
+	td.appendChild(document.createTextNode("Pokemon To Evolve"));
+	td.setAttribute('colSpan', '' + (counts.length * 2));
+	td.style.textAlign = "center";
+	var tr1 = header.insertRow();
+	tr1.style.fontWeight = "bold";
+	tr = header.insertRow();
+	tr.style.fontWeight = "bold";
+	td = tr.insertCell();
+	td.appendChild(document.createTextNode("Cost"));
+	for (i=0; i < counts.length; i++) {
+		n = counts[i];
+		td = tr1.insertCell();
+		td.appendChild(document.createTextNode(n));
+		td.setAttribute('colSpan', '2');
+		td = tr.insertCell();
+		td.appendChild(document.createTextNode("C"));
+		td = tr.insertCell();
+		td.appendChild(document.createTextNode("#"));
+	}
+	for (i=0; i < evolutions.length; i++) {
+		tr = tbl.insertRow();
+		e = evolutions[i];
+		td = document.createElement("TH");
+		td.innerHTML = e;
+		tr.appendChild(td);
+		for (j=0; j < counts.length; j++) {
+			n = counts[j];
+			keep = needCatch(e,n,0,1,1,0,n);
+			candy = needCandy(e,n);
+			td = tr.insertCell();
+			td.appendChild(document.createTextNode(candy));
+			td = tr.insertCell();
+			td.appendChild(document.createTextNode(keep));
+		}
+	}
+}

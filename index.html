@@ -141,64 +141,24 @@
 	"Pokemon to Evolve" value before using the "Lucky Egg" and beginning
 	the Evolution spree, for a cleaner work space.
 	</p>
-	<p>From Scratch, Catch and Transfer evolution values:<br/>
-	<table border="1">
-		<tr>
-			<th colspan="3">1</th>
-			<th colspan="3">64</th>
-		</tr>
-		<tr>
-			<th>Candy<br/>Cost</th>
-			<th>Catch<br/>Pokemon</th>
-			<th>Catch & <br/>Transfer</th>
-			<th>Candy<br/>Cost</th>
-			<th>Catch<br/>Pokemon</th>
-			<th>Catch & <br/>Transfer</th>
-		</tr>
-		<tr>
-			<td>12</td>
-			<td>4</td>
-			<td>4</td>
-			<td>768</td>
-			<td></td>
-			<td>193</td>
-		</tr>
-		<tr>
-			<td>25</td>
-			<td>9</td>
-			<td>7</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>50</td>
-			<td>17</td>
-			<td>13</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>100</td>
-			<td>34</td>
-			<td>26</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>400</td>
-			<td>134</td>
-			<td>101</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table><br/>
+	<p>From nothing, Candy and Catch values:<br/>
+	<table border="1" id="staticListOnes"></table><br/>
+	<table border="1" id="staticListTeens"></table><br/>
+	<table border="1" id="staticListTens"></table><br/>
+	<table border="1" id="staticListSixties"></table><br/>
+	<script>
+		candyCatchTable([1,2,3,4,5,6,7,8,9,10],"staticListOnes");
+		candyCatchTable([11,12,13,14,15,16,17,18,19],"staticListTeens");
+		candyCatchTable([20,25,30,35,40,45,50,55,60],"staticListTens");
+		candyCatchTable([61,62,63,64,65,66,67,68,69],"staticListSixties");
+	</script>
 	This does not include an offset for Candy received from hatching 
 	Pokemon out of eggs, as that is pretty much random to the best of my 
-	knowledge.
+	knowledge.<br/>
+	This shows that if you want to evolve 64 Pidgey's (Evolution Cost = 12), 
+	then you will catch a total of 193 Pidgey family Pokemon (Pidgey, 
+	Pidgeotto, Pidgeot), transferring all but the 64 to evolve, and you 
+	will have 705 Candy when you begin evolving.
 	</p>
 	<br/><br/>
 	<p>
@@ -215,6 +175,24 @@
 	Catches remaining for an evolution, with Transfers:<br/>(Cost - Candy + 1) / (Per + 1)<br/><br/>
 	Pokemon to Keep/Evolve:<br/>(Candy/Cost + Candy - 1) / Cost<br/><br/>
 	Pokemon to Keep/Evolve, with Transfers:<br/>(Candy/Cost * 2 + Candy - 1) / Cost<br/>
+	</p>
+	<br/><br/>
+	<p>
+		Main Formula: Convert everything into terms of Candy, ignoring eggs.<br/>
+		N*C = A + (N - 1)*E + (x - N - L)*t + (N - M)*t + x*c<br/><br/>
+		N = Pokemon to Evolve<br/>
+		C = Evolution Cost<br/>
+		A = Current Candy<br/>
+		x = Pokemon Caught<br/>
+		E = Candy received for Evolving<br/>
+		t = Candy received for Transferring<br/>
+		c = Candy received for Catching<br/>
+		L = Pokemon not transferred<br/>
+		M = Pokemon, Evolved but not transferred<br/>
+		<a href="https://www.wolframalpha.com/input/?i=solve+N*C%3DA%2B(N-1)*E%2B(x-N-L)t%2B(N-M)t%2Bx*c+for+x">
+		Wolfram Alpha</a><br/>
+		
+		
 	</p>
 </body>
 </html>
